@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS skinr_db;
+CREATE DATABASE skinr_db;

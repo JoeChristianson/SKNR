@@ -1,0 +1,73 @@
+:root{
+    --dark-bg:hsl(300, 100%, 25%);
+    --med-bg:hsl(300, 27%, 67%);
+    --light-bg:hsl(0, 17%, 91%);
+}
+
+body{
+    background-color: var(--light-bg);
+}
+
+header{
+    background-color: var(--dark-bg);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+    align-items: center;
+}
+
+#glass{
+    font-size: 2rem;
+    padding-left: 0.5em;
+    padding-bottom: .1em;
+}
+
+header>h3{
+    font-size: 1.5rem;
+}
+
+header>button{
+    background-color: purple;
+    font-size: 1.5rem !important;
+    font-weight: bolder !important;
+}
+
+#mid{
+    background-color: var(--med-bg);
+    padding: 1em;
+    text-align: center;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.row>section{
+    width: 20%;
+    padding:1em;
+}
+
+.row h2{
+    padding-bottom: .5em;
+}
+
+.module-content{
+    background-color: var(--med-bg);
+    padding: 1em;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--dark-bg);
+    display: flex;
+    padding: 1em;
+}
+
+footer>i{
+    background-color: white;
+    border-radius: 50%;
+}
