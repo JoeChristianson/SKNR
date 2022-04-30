@@ -23,6 +23,10 @@ ToDo.init(
                 model:'user',
                 key:'id'
             }
+        },
+        isComplete:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false,
         }
     },
     {

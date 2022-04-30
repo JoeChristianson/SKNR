@@ -13,9 +13,23 @@
         </section>
         <section id="to-dos-section" class="col-sm module">
           <h2>To Dos</h2>
-          <section class="module-content"></section>
+          <section class="module-content to-dos-content">
+            <form action="" id="add-to-do-form">
+            <input id="new-to-do" type="text"/>
+            <input type="submit">
+            </form>
+            <button data-to-do-id="{{this.id}}" class="to-do-btn">
+                Test Button
+                </button>
+            {{#each toDos}}
+                
+                <button data-to-do-id="{{this.id}}" class="to-do-btn">
+                {{this.name}}
+                </button>
+            {{/each}}
+          </section>
         </section>
       </div>
     </div>
   <script src="./scripts/home.js"></script>
-  
+    <script src="./scripts/todo.js"></script>
