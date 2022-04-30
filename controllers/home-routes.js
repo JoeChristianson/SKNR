@@ -7,6 +7,7 @@ router.get("/",withAuth,async (req,res)=>{
 
     // const toDos = await getToDos(req.session.userId);
     const toDos = await getToDos(req.session.userId);
+    console.log(toDos)
 
     let testText = "teat"
     res.render('home',{

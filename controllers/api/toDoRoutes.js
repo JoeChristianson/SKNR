@@ -28,13 +28,43 @@ router.get("/",async (req,res)=>{
         console.log(req.session.userId)
         const toDos = await ToDo.findAll({
             where:{
-                user_id:req.session.userId
+                user_id:req.session.userId,
+                isComplete:true
             }
         });
         res.status(200).json(toDos);
     }catch(err){
         res.status(500).json(err)
     }
+})
+
+router.get("/completed",async (req,res)=>{
+    try{
+        console.log(req.session.userId)
+        const toDos = await ToDo.findAll({
+            where:{
+                user_id:req.session.userId,
+                isComplete:1
+            }
+        });
+        res.status(200).json(toDos);
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+router.put('/',async (req,res)=>{
+    console.log(req.body.toDoId);
+    console.log(req.body.isComplete)
+    const response = await ToDo.update({
+        isComplete:req.body.isComplete
+    },{
+        where:{
+            id: req.body.toDoId
+        }
+    })
+    console.log(response)
+    res.json(response)
 })
 
 module.exports = router;

@@ -18,14 +18,12 @@
             <input id="new-to-do" type="text"/>
             <input type="submit">
             </form>
-            <button data-to-do-id="{{this.id}}" class="to-do-btn">
-                Test Button
-                </button>
             {{#each toDos}}
-                
-                <button data-to-do-id="{{this.id}}" class="to-do-btn">
+              {{#unless this.isComplete}}
+                <button data-to-do-id="{{this.id}}" data-is-complete="{{this.isComplete}}" class="to-do-btn">
                 {{this.name}}
                 </button>
+                {{/unless}}
             {{/each}}
           </section>
         </section>
