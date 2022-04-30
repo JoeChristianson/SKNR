@@ -33,14 +33,21 @@ router.post('/login',async (req,res)=>{
             res.status(400).json({message:'Incorrect email or password'});
             return;
         }
-        req.session.save(()=>{
+        req.session.save(async ()=>{
             req.session.loggedIn = true;
+            req.session.userId = userData.getDataValue("id");
+            console.log(req.session.userId);
             res.status(200).json({user:userData,message: 'You are now logged in'})
         })
     }catch(err){
         console.log(err);
         res.status(500).json(err)
     }
+})
+
+router.post("/logout",(req,res)=>{
+    req.session.loggedIn = false;
+    res.status(200).json({message:'You are now logged out.'})
 })
 
 module.exports = router;

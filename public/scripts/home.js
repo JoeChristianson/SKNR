@@ -6,8 +6,15 @@ logOutBtn.on('click',(e)=>{
 
 const logOut = async ()=>{
     console.log('logging out')
-    // const response = fetch('api/users/logout',{
-    //     method:'POST',
-
-    // })
+    const response = await fetch('api/users/logout',{
+        method:'POST',
+        body:JSON.stringify({action:'logout'}),
+        headers:{'Content-Type': 'application/json'},
+    });
+    if (response.ok){
+        console.log(response);
+        document.location.replace('/login');
+    }else {
+        alert("failed to logout")
+    }
 }
