@@ -6,7 +6,6 @@ regForm.on('submit',(e)=>{
   signupFormHandler()
 })
 
-console.log('hey')
 const loginFormHandler = async (event) => {
     event.preventDefault();
   
@@ -30,7 +29,6 @@ const loginFormHandler = async (event) => {
   };
   
   const signupFormHandler = async () => {
-      console.log('in it')  
     const username = document.querySelector('#username-register').value.trim();
     const email = document.querySelector('#email-register').value.trim();
     const password = document.querySelector('#password-register').value.trim();

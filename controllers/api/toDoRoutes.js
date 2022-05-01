@@ -26,7 +26,7 @@ router.get("/",async (req,res)=>{
         const toDos = await ToDo.findAll({
             where:{
                 user_id:req.session.userId,
-                isComplete:true
+                isComplete:false
             }
         });
         res.status(200).json(toDos);

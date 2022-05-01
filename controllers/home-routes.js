@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {User} = require('../models');
 const withAuth = require('../utils/auth');
+const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
 
 router.get("/",withAuth,async (req,res)=>{
@@ -12,9 +13,6 @@ router.get("/",withAuth,async (req,res)=>{
             id:req.session.userId
         }
     })
-    console.log(userInfo)
-
-    let testText = "teat"
     res.render('home',{
         loggedin: req.session.logged_in,toDos,username:userInfo.user_name
     })
