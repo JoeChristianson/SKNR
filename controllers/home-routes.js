@@ -7,11 +7,16 @@ router.get("/",withAuth,async (req,res)=>{
 
     // const toDos = await getToDos(req.session.userId);
     const toDos = await getToDos(req.session.userId);
-    console.log(toDos)
+    const userInfo = await User.findOne({
+        where:{
+            id:req.session.userId
+        }
+    })
+    console.log(userInfo)
 
     let testText = "teat"
     res.render('home',{
-        loggedin: req.session.logged_in,toDos
+        loggedin: req.session.logged_in,toDos,username:userInfo.user_name
     })
 });
 
