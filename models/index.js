@@ -1,5 +1,5 @@
-const User = require("./User.js")
-const Habit = require("./Habit.js")
+const User = require("./user")
+const Habit = require("./habit")
 const ToDo = require('./ToDo')
 const Assessment = require("./assessment");
 const AssessmentDay = require("./assessmentdays");
