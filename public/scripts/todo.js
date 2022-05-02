@@ -36,8 +36,19 @@ toDoForm.on('submit',async (e)=>{
         headers:{'Content-Type': 'application/json'}
     })
     if (response.ok) {
-        console.log(response.body)
+        const respBody = await response.json();
+        console.log(respBody)
+        addToDoToPage(newToDo.val(),respBody.id)
       } else {
         alert('Failed to add to do.');
       }
 })
+
+const addToDoToPage = (val,id)=>{
+  const cont = $(".to-dos-content");
+  const btn = $("<button>");
+  btn.attr({'data-to-do-id':id,'data-is-complete':false});
+  btn.addClass("to-do-btn");
+  btn.text(val)
+  cont.append(btn)
+}
