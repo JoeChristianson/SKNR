@@ -54,11 +54,19 @@ header>button{
     width: 100%;
     background-color: #80008017;
     display: flex;
+    margin: .3em 0;
+
 }
 
 .task-btn, .to-do-btn{
-    height: 1.5rem;
-    width: 1.5rem;
+    width: 2rem;
+    background-color: white;
+    border-radius: 0;
+    }
+
+.to-do{
+    padding: .5em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 footer{
@@ -75,13 +83,15 @@ footer>i{
     border-radius: 50%;
 }
 
-
-.done::before{
-    content: "x";
+.to-do-btn:hover::before, .done::before{
+    content: "\2713";
+    font-weight: 900;
+    font-size: 1.15rem;
 }
 
 .done-text{
     text-decoration: line-through;
+    opacity: .5;
 }
 
 @media screen and (max-width: 600px) {
