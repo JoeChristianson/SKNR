@@ -5,14 +5,13 @@
       </h4>
       <button id="log-out-btn">Log-out</button>
     </section>
-    <div class="container">
+    <div class="main-container">
 
-      <div class="row">
-        <section id="daily-queue-section" class="col-sm module">
+        <section id="daily-queue-section" class="mod">
           <h2>Daily Queue</h2>
           <section class="module-content"></section>
         </section>
-        <section id="to-dos-section" class="col-sm module">
+        <section id="to-dos-section" class="mod mhide">
           <h2>To Dos</h2>
           <section class="module-content to-dos-content">
             <form action="" id="add-to-do-form">
@@ -21,14 +20,25 @@
             </form>
             {{#each toDos}}
               {{#unless this.isComplete}}
+              <div class="to-do-wrapper">
                 <button data-to-do-id="{{this.id}}" data-is-complete="{{this.isComplete}}" class="to-do-btn">
-                {{this.name}}
                 </button>
+              <div  data-to-do-id="{{this.id}}" data-is-complete="{{this.isComplete}}" class="to-do" >
+                {{this.name}}
+              </div>  
+              </div>
                 {{/unless}}
             {{/each}}
           </section>
         </section>
+        <section id="habit-section" class="mod mhide">
+          <h2>Today's Habits</h2>
+          <section class="module-content"></section>
+        </section>
+          <section id="analysis-section" class="mod mhide">
+          <h2>Analysis</h2>
+          <section class="module-content"></section>
+        </section>
       </div>
-    </div>
   <script src="./scripts/home.js"></script>
     <script src="./scripts/todo.js"></script>

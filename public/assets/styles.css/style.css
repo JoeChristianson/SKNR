@@ -44,18 +44,21 @@ header>button{
     flex-direction: row;
 }
 
-.row>section{
-    width: 20%;
-    padding:1em;
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.row h2{
-    padding-bottom: .5em;
+.to-do-wrapper{
+    width: 100%;
+    background-color: #80008017;
+    display: flex;
 }
 
-.module-content{
-    background-color: var(--med-bg);
-    padding: 1em;
+.task-btn, .to-do-btn{
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 footer{
@@ -72,6 +75,17 @@ footer>i{
     border-radius: 50%;
 }
 
-.done{
+
+.done::before{
+    content: "x";
+}
+
+.done-text{
     text-decoration: line-through;
 }
+
+@media screen and (max-width: 600px) {
+    .mhide {
+      display: none;
+    }
+  }
