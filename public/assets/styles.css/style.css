@@ -33,6 +33,11 @@ header>button{
     font-weight: bolder !important;
 }
 
+main{
+    height: 85vh;
+    overflow: scroll;
+}
+
 #mid{
     background-color: var(--med-bg);
     padding: 1em;
@@ -48,6 +53,7 @@ header>button{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    overflow-y: scroll;
 }
 
 .to-do-wrapper{
