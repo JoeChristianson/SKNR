@@ -33,6 +33,15 @@ header>button{
     font-weight: bolder !important;
 }
 
+.modal{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    text-align: center;
+    background: white;
+}
+
 main{
     height: 85vh;
     overflow: scroll;
@@ -81,6 +90,7 @@ footer{
     width: 100%;
     background-color: var(--dark-bg);
     display: flex;
+    justify-content: space-evenly;
     padding: 1em;
 }
 
@@ -98,6 +108,10 @@ footer>i{
 .done-text{
     text-decoration: line-through;
     opacity: .5;
+}
+
+.hide{
+    display: none;
 }
 
 @media screen and (max-width: 600px) {
