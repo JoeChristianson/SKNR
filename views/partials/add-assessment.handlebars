@@ -1,10 +1,15 @@
 <div id="add-assessment-modal" class="modal hide">
+    <header>
 Add Assessment
+        <button class="close">X</button>
+    </header>
 <input type="text" id="add-assessment-name">
-<select>
+<select id="add-assessment-metric">
     <option value="boolean">True/False</option>
     <option value="grade">Grade</option>
     <option value="amount">Amount</option>
 </select>
 <button id="add-assessment-btn">Add Assessment</button>
 </div>
+
+<script src="scripts/add-assessment.js"></script>

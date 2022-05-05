@@ -1,4 +1,3 @@
-const body = $("body");
 const toDoForm = $("#add-to-do-form");
 const newToDo = $("input#new-to-do")
 
