@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User} = require('../models');
+const {User, Assessment} = require('../models');
 const withAuth = require('../utils/auth');
 const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
@@ -13,8 +13,14 @@ router.get("/",withAuth,async (req,res)=>{
             id:req.session.userId
         }
     })
+    const assessments = await Assessment.findAll({
+        where:{
+            user_id:req.session.userId
+        }
+    })
+    console.log(assessments)
     res.render('home',{
-        loggedin: req.session.logged_in,toDos,username:userInfo.user_name
+        loggedin: req.session.logged_in,toDos,username:userInfo.user_name,assessments
     })
 });
 
