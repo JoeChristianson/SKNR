@@ -1,20 +1,28 @@
 const router = require('express').Router();
-const {ToDo,User} = require('../../models');
+const {ToDo,User,UserToDo} = require('../../models');
 
 router.post("/",async (req,res)=>{
     try{
-        console.log(req.body);
-        const newToDo = await ToDo.create({
-            name:req.body.toDoName,
-            user_id:req.session.userId,
-        })
-
-        if (!newToDo){
-            res.status(404).json({message:"bad request"});
-            return;
+        let existingToDo = await ToDo.findAll({
+            where:{
+                name:req.body.toDoName
+            }
         }
-        console.log("hellow");
-        res.json(newToDo);
+        );
+        console.log(existingToDo)
+        if (existingToDo.length===0){
+            console.log("none")
+            existingToDo[0] = await ToDo.create({
+                name:req.body.toDoName,
+            })
+        }
+        console.log(existingToDo);
+        const newUserToDo = await UserToDo.create({
+            user_id:req.session.userId,
+            todo_id:existingToDo[0].id
+        })
+        console.log(newUserToDo);
+        res.json(existingToDo)
     }catch(err){
         res.status(500).json(err)
     }
@@ -22,14 +30,13 @@ router.post("/",async (req,res)=>{
 
 router.get("/",async (req,res)=>{
     try{
-        console.log(req.session.userId)
-        const toDos = await ToDo.findAll({
+        const userToDos = await UserToDo.findAll({
             where:{
-                user_id:req.session.userId,
-                isComplete:false
-            }
-        });
-        res.status(200).json(toDos);
+                user_id:req.session.userId
+            },
+            include:[{model:ToDo}]
+        })
+        res.status(200).json(userToDos);
     }catch(err){
         res.status(500).json(err)
     }
@@ -51,13 +58,13 @@ router.get("/completed",async (req,res)=>{
 })
 
 router.put('/',async (req,res)=>{
-    console.log(req.body.toDoId);
+    console.log(req.body.userToDoId);
     console.log(req.body.isComplete)
-    const response = await ToDo.update({
+    const response = await UserToDo.update({
         isComplete:req.body.isComplete
     },{
         where:{
-            id: req.body.toDoId
+            id: req.body.userToDoId
         }
     })
     console.log(response)

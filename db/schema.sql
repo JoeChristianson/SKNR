@@ -1,2 +1,3 @@
 DROP DATABASE IF EXISTS sknr_db;
 CREATE DATABASE sknr_db;
+USE sknr_db;

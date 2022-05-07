@@ -3,11 +3,6 @@ const {User,Assessment,UserAssessment} = require("../../models")
 
 router.post("/",async(req,res)=>{
     try{
-        console.log("in it");
-        console.log(req.body)
-        console.log(req.session.userId);
-        console.log(req.body.assessmentName)
-        console.log(req.body.metric)
         let existingAssessment = await Assessment.findAll({
             where:{
                 assessment_name:req.body.assessmentName

@@ -17,17 +17,6 @@ ToDo.init(
             type:DataTypes.STRING,
             allowNull:false,
         },
-        user_id:{
-            type:DataTypes.INTEGER,
-            references:{
-                model:'user',
-                key:'id'
-            }
-        },
-        isComplete:{
-            type:DataTypes.BOOLEAN,
-            defaultValue:false,
-        }
     },
     {
         sequelize,

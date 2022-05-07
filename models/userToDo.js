@@ -11,7 +11,7 @@ UserToDo.init(
             primaryKey:true,
             autoIncrement:true
         },
-        to_do_id:{
+        todo_id:{
             type:DataTypes.INTEGER,
             allowNull:false,
             references:{
@@ -25,6 +25,10 @@ UserToDo.init(
                 model:'user',
                 key:"id"
             }
+        },
+        isComplete:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false,
         }   
     },
     {
@@ -32,7 +36,7 @@ UserToDo.init(
         timestamps:true,
         freezeTableName:true,
         underscored:true,
-        modelName:'user_habit'
+        modelName:'user_to_do'
     }
 )
 

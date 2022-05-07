@@ -25,22 +25,6 @@ Habit.belongsToMany(User,{
     as:'userHabits'
 })
 
-User.belongsToMany(ToDo,{
-    through:{
-        model:UserToDo,
-        unique:false
-    },
-    as: "toDoUsers"
-})
-
-ToDo.belongsToMany(User,{
-    through:{
-        model:UserToDo,
-        unique:false
-    },
-    as:"userToDos"
-})
-
 User.belongsToMany(Assessment,{
     through:{
         model:UserAssessment,
@@ -49,12 +33,30 @@ User.belongsToMany(Assessment,{
     as: "AssessmentUsers"
 })
 
+ToDo.hasMany(UserToDo,{
+    foreignKey: 'todo_id'
+})
+
+UserToDo.belongsTo(ToDo,{
+    foreignKey: 'todo_id'
+})
+
+User.hasMany(UserToDo,{
+    foreignKey:'user_id'
+})
+
+UserToDo.belongsTo(User,{
+    foreignKey:"user_id"
+})
+
 Assessment.belongsToMany(User,{
     through:{
         model:UserAssessment,
         unique:false
     },
     as:"userAssessments"
-})
+});
 
-module.exports = {User,Habit,ToDo,Assessment,AssessmentDay,UserHabit,UserAssessment}
+
+
+module.exports = {User,Habit,ToDo,Assessment,AssessmentDay,UserHabit,UserAssessment,UserToDo}

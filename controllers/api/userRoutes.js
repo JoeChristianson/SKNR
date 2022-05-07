@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User} = require("../../models")
+const {User, Assessment} = require("../../models")
 
 router.post("/",async (req,res)=>{
     try{
@@ -17,7 +17,10 @@ router.post("/",async (req,res)=>{
 });
 
 router.get("/allData",async (req,res)=>{
-    res.json({})
+    const data = await User.findByPk(req.session.userId,{
+        include: 'AssessmentUsers'
+    })
+    res.json(data)
 })
 
 
