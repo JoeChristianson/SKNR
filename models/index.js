@@ -1,44 +1,60 @@
 const User = require("./user")
 const Habit = require("./habit")
+const UserHabit = require("./userHabits")
 const ToDo = require('./ToDo')
 const Assessment = require("./assessment");
 const AssessmentDay = require("./assessmentdays");
+const UserToDo = require("./userToDo.js")
+const UserAssessment = require("./userAssessment")
 
-User.hasMany(Habit,{
-    foreignKey:'user_id',
-    onDelete:'CASCADE'
+// look at producttags to figure this out from homework
+
+User.belongsToMany(Habit,{
+    through:{
+        model:UserHabit,
+        unique:false
+    },
+    as: "habitUsers"
 })
 
-Habit.belongsTo(User,{
-    foreignKey:'user_id'
+Habit.belongsToMany(User,{
+    through:{
+        model:UserHabit,
+        unique:false
+    },
+    as:'userHabits'
 })
 
-User.hasMany(ToDo,{
-    foreignKey:'user_id',
-    onDelete:"CASCADE"
+User.belongsToMany(ToDo,{
+    through:{
+        model:UserToDo,
+        unique:false
+    },
+    as: "toDoUsers"
 })
 
-ToDo.belongsTo(User,{
-    foreignKey:'user_id'
+ToDo.belongsToMany(User,{
+    through:{
+        model:UserToDo,
+        unique:false
+    },
+    as:"userToDos"
 })
 
-User.hasMany(Assessment,{
-    foreignKey:'user_id',
-    onDelete:"CASCADE"
+User.belongsToMany(Assessment,{
+    through:{
+        model:UserAssessment,
+        unique:false
+    },
+    as: "AssessmentUsers"
 })
 
-Assessment.belongsTo(User,{
-    foreignKey:'user_id'
+Assessment.belongsToMany(User,{
+    through:{
+        model:UserAssessment,
+        unique:false
+    },
+    as:"userAssessments"
 })
 
-Assessment.hasMany(AssessmentDay,{
-    foreignKey:'assessment_id',
-    onDelete:"CASCADE"
-})
-
-AssessmentDay.belongsTo(Assessment,{
-    foreignKey:'assessment_id'
-})
-
-
-module.exports = {User,Habit,ToDo,Assessment,AssessmentDay}
+module.exports = {User,Habit,ToDo,Assessment,AssessmentDay,UserHabit,UserAssessment}

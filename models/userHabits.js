@@ -1,9 +1,10 @@
-const {Model, DataTypes}=require("sequelize");
+const {Model,DataTypes} = require("sequelize");
 const sequelize = require("../config/connection.js");
+const User = require("./user");
 
-class AssessmentDay extends Model{};
+class UserHabit extends Model {}
 
-AssessmentDay.init(
+UserHabit.init(
     {
         id:{
             type:DataTypes.INTEGER,
@@ -11,29 +12,29 @@ AssessmentDay.init(
             primaryKey:true,
             autoIncrement:true
         },
-        date:{
-            type:DataTypes.DATEONLY,
-            allowNull:false
-        },
-        assessment_id:{
+        habit_id:{
             type:DataTypes.INTEGER,
+            allowNull:false,
             references:{
-                model:'user_assessment',
+                model:'habit',
                 key:'id'
             }
         },
-        value:{
+        user_id:{
             type:DataTypes.INTEGER,
-            allowNull:false,
-        }       
+            references:{
+                model:'user',
+                key:"id"
+            }
+        }   
     },
     {
         sequelize,
         timestamps:true,
         freezeTableName:true,
         underscored:true,
-        modelName:'assessment_day'
+        modelName:'user_habit'
     }
 )
 
-module.exports = AssessmentDay;
+module.exports = UserHabit;

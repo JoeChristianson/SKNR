@@ -14,7 +14,12 @@ router.post("/",async (req,res)=>{
     }catch(err){
         res.json(err)
     }
+});
+
+router.get("/allData",async (req,res)=>{
+    res.json({})
 })
+
 
 router.post('/login',async (req,res)=>{
     try{
