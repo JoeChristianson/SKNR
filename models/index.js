@@ -6,6 +6,9 @@ const Assessment = require("./assessment");
 const AssessmentDay = require("./assessmentdays");
 const UserToDo = require("./userToDo.js")
 const UserAssessment = require("./userAssessment")
+const UserQueueItem = require("./userQueueItem");
+const QueueItem = require("./queueItem");
+const UserQueueItemDay = require("./userQueueItemDay")
 
 // look at producttags to figure this out from homework
 
@@ -41,6 +44,15 @@ UserToDo.belongsTo(ToDo,{
     foreignKey: 'todo_id'
 })
 
+QueueItem.hasMany(UserQueueItem,{
+    foreignKey:"queue_item_id"
+})
+
+UserQueueItem.belongsTo(QueueItem,{
+    foreignKey:"queue_item_id"
+})
+
+
 User.hasMany(UserToDo,{
     foreignKey:'user_id'
 })
@@ -48,6 +60,9 @@ User.hasMany(UserToDo,{
 UserToDo.belongsTo(User,{
     foreignKey:"user_id"
 })
+
+
+
 
 Assessment.belongsToMany(User,{
     through:{
@@ -59,4 +74,4 @@ Assessment.belongsToMany(User,{
 
 
 
-module.exports = {User,Habit,ToDo,Assessment,AssessmentDay,UserHabit,UserAssessment,UserToDo}
+module.exports = {User,Habit,ToDo,Assessment,AssessmentDay,UserHabit,UserAssessment,UserToDo,QueueItem,UserQueueItem,UserQueueItemDay}

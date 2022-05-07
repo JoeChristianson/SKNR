@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const {User, Assessment} = require("../../models")
+const {User, Assessment} = require("../../models");
+const {loadCurrentQueue}= require("../../utils/setCurrentDay");
 
 router.post("/",async (req,res)=>{
     try{
@@ -31,7 +32,7 @@ router.post('/login',async (req,res)=>{
                 email: req.body.email,
             }
         });
-
+        
         if(!userData){
             res.status(400).json({message:"Incorrect email or password."});
             return;
@@ -41,10 +42,12 @@ router.post('/login',async (req,res)=>{
             res.status(400).json({message:'Incorrect email or password'});
             return;
         }
+        
+        const currentDay  = await loadCurrentQueue(userData.getDataValue("id"));
+        console.log(currentDay)
         req.session.save(async ()=>{
             req.session.loggedIn = true;
             req.session.userId = userData.getDataValue("id");
-            console.log(req.session.userId);
             res.status(200).json({user:userData,message: 'You are now logged in'})
         })
     }catch(err){
