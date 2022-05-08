@@ -34,8 +34,10 @@ const loadCurrentQueue = async (userId)=>{
         console.log(item);
         const dayItem = await UserQueueItemDay.create({
             user_queue_item_id:item.id,
+            queue_item_id:item.queue_item_id,
             date:`${today.month}/${today.date}/${today.year}`,
         })
+        console.log(dayItem)
     }
     // const newDay = await UserQueueItemDay.bulkCreate({
 

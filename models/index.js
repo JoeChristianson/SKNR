@@ -49,9 +49,24 @@ QueueItem.hasMany(UserQueueItem,{
 })
 
 UserQueueItem.belongsTo(QueueItem,{
+    foreignKey:'queue_item_id'
+})
+
+UserQueueItemDay.belongsTo(UserQueueItem,{
+    foreignKey:'user_queue_item_id'
+})
+
+UserQueueItem.hasOne(UserQueueItemDay,{
+    foreignKey:"user_queue_item_id"
+})
+
+QueueItem.hasMany(UserQueueItemDay,{
     foreignKey:"queue_item_id"
 })
 
+UserQueueItemDay.belongsTo(QueueItem,{
+    foreignKey:"queue_item_id"
+})
 
 User.hasMany(UserToDo,{
     foreignKey:'user_id'
@@ -60,8 +75,6 @@ User.hasMany(UserToDo,{
 UserToDo.belongsTo(User,{
     foreignKey:"user_id"
 })
-
-
 
 
 Assessment.belongsToMany(User,{

@@ -19,6 +19,14 @@ UserQueueItemDay.init(
                 key:'id'
             }
         },
+        queue_item_id:{
+            type:DataTypes.INTEGER,
+            allowNull:false,
+            references:{
+                model:'queueitem',
+                key:"id"
+            }
+        },
         date:{
             type:DataTypes.DATEONLY,
             allowNull:false
