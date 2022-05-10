@@ -9,6 +9,6 @@ router.use('/users', userRoutes);
 router.use("/todos",toDoRoutes)
 router.use('/assessments',assessmentRoutes)
 router.use("/queue",queueRoutes)
-// router.use('/habits',habitRoutes)
+router.use('/habit',habitRoutes)
 
 module.exports = router;

@@ -8,8 +8,10 @@ router.post("/",async (req,res)=>{
                 habit_name:req.body.habitName
             }
         })
+        console.log(oldHabit)
         let habitId;
-        if (oldHabit){
+        if (oldHabit.length !== 0){
+            console.log
             habitId = oldHabit[0].id
         }
         else{
@@ -22,7 +24,7 @@ router.post("/",async (req,res)=>{
         }
         const newUserHabit = await UserHabit.create({
             habit_id:habitId,
-            user_id:req.session.user_id,
+            user_id:req.session.userId,
         })
 
         res.json(newUserHabit)
@@ -31,5 +33,27 @@ router.post("/",async (req,res)=>{
     }
 })
 
+router.get("/",async (req,res)=>{
+    try{
+        console.log("in it")
+        // const habits = await UserHabit.findAll({
+        //     where:{
+        //         user_id:req.session.userId
+        //     },include:{model:Habit}
+        // });
+        const habits = await UserHabit.findAll({
+            where:{
+                user_id:req.session.userId
+            },
+            include:{
+                model:Habit
+            }
+        })
+        console.log("in it")
+        res.status(200).json(habits)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
 
 module.exports = router;

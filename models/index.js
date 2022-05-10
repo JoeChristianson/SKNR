@@ -64,8 +64,20 @@ QueueItem.hasMany(UserQueueItemDay,{
     foreignKey:"queue_item_id"
 })
 
+
+
 UserQueueItemDay.belongsTo(QueueItem,{
     foreignKey:"queue_item_id"
+})
+
+Habit.hasMany(UserHabit,{
+    foreignKey:"habit_id"
+})
+
+
+
+UserHabit.belongsTo(Habit,{
+    foreignKey:"habit_id"
 })
 
 User.hasMany(UserToDo,{
