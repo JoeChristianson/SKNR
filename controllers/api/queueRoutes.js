@@ -55,15 +55,19 @@ router.get("/today",async(req,res)=>{
         where:{
             date:`${today.month}/${today.date}/${today.year}`
         },
-    include:[{model:UserQueueItem},{model:QueueItem}]
+        order:[
+            ["isComplete","DESC"],
+        ],
+        include:[{model:UserQueueItem},{model:QueueItem}],
     })
+    console.log(todayQueue[0])
     res.status(200).json(todayQueue)
 })
 
 router.put("/reorder",async (req,res)=>{
     try{
         console.log(req.session.userId)
-        await reorder(req.session.userId,3,4)
+        await reorder(2,req.body.start,req.body.drop)
         res.status(200).json("working")
     }catch(err){
         res.status(500).json(err)
@@ -90,6 +94,16 @@ router.put("/incomplete/:id",async (req,res)=>{
         await updated.save()
         console.log(updated.dataValues.isComplete)
         res.status(200).json(updated)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+router.put("/reorder",async (req,res)=>{
+    try{
+        console.log(req.body)
+        const result = await reorder(req.body.start,req.body.drop);
+        res.status(200).json(result)
     }catch(err){
         res.status(500).json(err)
     }

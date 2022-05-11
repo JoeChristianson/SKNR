@@ -15,7 +15,7 @@ h2{
     text-align: center;
 }
 
-button{
+button,input[type="submit"]{
     background-color: var(--light-bg);
     padding: 5px 10px;
     cursor: pointer;
@@ -154,6 +154,18 @@ footer>i{
       margin: 10px;
       align-items: center;
   }
+
+  .button-cont{
+      display: flex;
+      flex-direction: column;
+  }
+  .button-cont button{
+      width:100%
+  }
+
+  .drag-over {
+    border: dashed 3px red;
+}
 
   @media screen and (max-width: 600px) {
     .log-reg-wrapper {

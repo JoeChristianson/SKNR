@@ -1,12 +1,12 @@
 const { UserQueueItem, QueueItem } = require("../models")
 
 const reorder = async (id,originalPosition,newPosition)=>{
+    console.log(id,originalPosition,newPosition)
     const allQueueItems = await UserQueueItem.findAll({
         where:{
             user_id:id
         },include:[{model:QueueItem}]
     })
-    console.log(allQueueItems)
     allQueueItems.forEach(async item=>{
         console.log(`${item.queueitem.name} is in position ${item.ordinal}`)
 

@@ -19,12 +19,19 @@ router.get("/",withAuth,async (req,res)=>{
         }
     })
     const queue = await UserQueueItemDay.findAll({
-        include:{model:UserQueueItem,include:{model:QueueItem},where:{
+        order:[
+            ['user_queue_item',"ordinal","ASC"],
+            // ['user_queue_item',"queue_item_id","DESC"]
+        ],
+        include:{model:UserQueueItem,include:{model:QueueItem},
+        where:{
             user_id:req.session.userId
-        }},
-        
+        },
+    },
+})
+    queue.forEach(i=>{
+        console.log(i)
     })
-    console.log(queue)
     res.render('home',{
         loggedin: req.session.logged_in,toDos,username:userInfo.user_name,assessments,queue
     })

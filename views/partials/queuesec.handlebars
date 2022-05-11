@@ -5,10 +5,10 @@
             <button id="add-queue-item-btn">Add</button>
 
           </section>
-          <section id="queue-cont">
+          <section id="queue-cont" class="button-cont">
             {{#each this as |qi|}}
 
-                <button
+                <button draggable="true"
                 {{#if this.dataValues.isComplete}}
                 class="done"
                 {{/if}}
@@ -20,3 +20,4 @@
         </section>
 
         <script src="./scripts/queue.js"></script>
+        <script src="./scripts/drag.js"></script>
