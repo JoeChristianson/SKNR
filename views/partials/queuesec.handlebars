@@ -1,0 +1,22 @@
+        <section id="daily-queue-section" class="mod mhide">
+          <h2>Daily Queue</h2>
+          <section class="module-content">
+            <input id="new-queue-text" type="text">
+            <button id="add-queue-item-btn">Add</button>
+
+          </section>
+          <section id="queue-cont">
+            {{#each this as |qi|}}
+
+                <button
+                {{#if this.dataValues.isComplete}}
+                class="done"
+                {{/if}}
+                
+                
+                 data-id="{{this.dataValues.id}}">{{this.user_queue_item.queueitem.dataValues.name}}</button>
+            {{/each}}
+          </section>
+        </section>
+
+        <script src="./scripts/queue.js"></script>

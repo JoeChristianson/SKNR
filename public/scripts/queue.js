@@ -1,6 +1,7 @@
 console.log("in the queue js")
 const queueTextInp = $("#new-queue-text");
 const addToQueueBtn = $("#add-queue-item-btn")
+const queueCont = $("#queue-cont")
 
 addToQueueBtn.on("click",async (e)=>{
     const newItem = queueTextInp.val();
@@ -17,8 +18,32 @@ addToQueueBtn.on("click",async (e)=>{
     })
     const data = await response.json()
     console.log(data)
+    if (data){
+        const btn = $("<button>");
+        btn.text(newItem);
+        btn.attr("data-id",data[0].id)
+        queueCont.append(btn)
+    }
+    queueTextInp.val("")
 })
 
-const loadInitialQueue = ()=>{
-    
-}
+queueCont.on("click","button", async (e)=>{
+    e.currentTarget.classList.toggle("done");
+    const id = e.currentTarget.dataset.id;
+    if(e.currentTarget.classList.contains("done")){
+
+        const response = await fetch("/api/queue/complete/"+id,{
+            method:"PUT"
+        });
+    }else{
+        const response = await fetch("/api/queue/incomplete/"+id,{
+            method:"PUT"
+        });
+    }
+})
+
+queueCont.on("contextmenu","button",(e)=>{
+    e.preventDefault();
+// this will pull up a module
+ 
+})

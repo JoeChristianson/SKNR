@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem} = require('../models');
+const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem, QueueItem} = require('../models');
 const withAuth = require('../utils/auth');
 const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
@@ -19,12 +19,12 @@ router.get("/",withAuth,async (req,res)=>{
         }
     })
     const queue = await UserQueueItemDay.findAll({
-        include:{model:UserQueueItem,where:{
+        include:{model:UserQueueItem,include:{model:QueueItem},where:{
             user_id:req.session.userId
         }},
         
     })
-    console.log(assessments)
+    console.log(queue)
     res.render('home',{
         loggedin: req.session.logged_in,toDos,username:userInfo.user_name,assessments,queue
     })

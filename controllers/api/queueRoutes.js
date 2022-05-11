@@ -22,6 +22,12 @@ router.post("/",async (req,res)=>{
             queue_item_id:existingQueueItem[0].id,
             ordinal:req.body.ordinal
         })
+        const today=getCurrentDate()
+        const newUserQueueItemDay = await UserQueueItemDay.create({
+            user_queue_item_id:newUserQueueItem.id,
+            queue_item_id:existingQueueItem[0].id,
+            date:`${today.month}/${today.date}/${today.year}`,
+        })
         console.log(newUserQueueItem);
         res.json(existingQueueItem)
     }catch(err){
@@ -59,6 +65,31 @@ router.put("/reorder",async (req,res)=>{
         console.log(req.session.userId)
         await reorder(req.session.userId,3,4)
         res.status(200).json("working")
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+router.put("/complete/:id",async (req,res)=>{
+    try{
+        console.log(req.params.id)
+        const updated = await UserQueueItemDay.findByPk(req.params.id);
+        await updated.update({isComplete:true});
+        await updated.save()
+        console.log(updated.dataValues.isComplete)
+        res.status(200).json(updated)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+router.put("/incomplete/:id",async (req,res)=>{
+    try{
+        const updated = await UserQueueItemDay.findByPk(req.params.id);
+        await updated.update({isComplete:false});
+        await updated.save()
+        console.log(updated.dataValues.isComplete)
+        res.status(200).json(updated)
     }catch(err){
         res.status(500).json(err)
     }
