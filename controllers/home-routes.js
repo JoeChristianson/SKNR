@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User, Assessment, UserQueueItemDay} = require('../models');
+const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem} = require('../models');
 const withAuth = require('../utils/auth');
 const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
@@ -13,15 +13,16 @@ router.get("/",withAuth,async (req,res)=>{
             id:req.session.userId
         }
     })
-    const assessments = await Assessment.findAll({
+    const assessments = await UserAssessment.findAll({
         where:{
             user_id:req.session.userId
         }
     })
     const queue = await UserQueueItemDay.findAll({
-        where:{
-            user_id:req.params.userId
-        }
+        include:{model:UserQueueItem,where:{
+            user_id:req.session.userId
+        }},
+        
     })
     console.log(assessments)
     res.render('home',{
@@ -35,6 +36,14 @@ router.get('/login',(req,res)=>{
         return
     }
     res.render('login')
+})
+
+router.get("/registration-success",(req,res)=>{
+    try{
+        res.status(200).render("registration-success")
+    }catch(err){
+        res.status(500).json(err)
+    }
 })
 
 module.exports = router;

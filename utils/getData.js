@@ -1,7 +1,7 @@
-const {ToDo} = require("../models")
+const {ToDo,UserToDo} = require("../models")
 
 const getToDos = async (userId)=>{
-    let list = await ToDo.findAll({
+    let list = await UserToDo.findAll({
         where:{
             user_id:userId
         }

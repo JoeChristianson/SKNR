@@ -4,7 +4,24 @@ const {loadCurrentQueue}= require("../../utils/setCurrentDay");
 
 router.post("/",async (req,res)=>{
     try{
-        console.log(req.body)
+        const existing = await User.findAll({
+            where:{
+                user_name:req.body.username,
+            }
+        })
+        if (existing.length>0){
+            res.status(400).json({message:"Username not unique"})
+            return;
+        }
+        const existing1 = await User.findAll({
+            where:{
+                email:req.body.email,
+            }
+        })
+        if (existing1.length>0){
+            res.status(400).json({message:"Email already registered"})
+            return
+        }
         const newUser = await User.create({
             user_name:req.body.username,
             email:req.body.email,

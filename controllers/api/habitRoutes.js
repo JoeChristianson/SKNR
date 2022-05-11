@@ -36,11 +36,6 @@ router.post("/",async (req,res)=>{
 router.get("/",async (req,res)=>{
     try{
         console.log("in it")
-        // const habits = await UserHabit.findAll({
-        //     where:{
-        //         user_id:req.session.userId
-        //     },include:{model:Habit}
-        // });
         const habits = await UserHabit.findAll({
             where:{
                 user_id:req.session.userId

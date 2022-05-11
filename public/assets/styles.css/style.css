@@ -8,6 +8,25 @@ body{
     background-color: var(--light-bg);
 }
 
+h2{
+    font-size: 2rem;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+button{
+    background-color: var(--light-bg);
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: auto;
+}
+
+button:hover{
+    background-color: var(--med-bg);
+    color: var(--light-bg);
+}
+
 header{
     background-color: var(--dark-bg);
     color: white;
@@ -113,6 +132,36 @@ footer>i{
 .hide{
     display: none;
 }
+
+.log-reg-wrapper{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 100px;
+}
+
+  .log-reg-section input{
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+  }
+
+
+  .form-group{
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+      align-items: center;
+  }
+
+  @media screen and (max-width: 600px) {
+    .log-reg-wrapper {
+      flex-direction: column;
+      margin-top: 30px;
+    }
+  }
+
 
 @media screen and (max-width: 600px) {
     .mhide {
