@@ -64,15 +64,15 @@ router.get("/today",async(req,res)=>{
     res.status(200).json(todayQueue)
 })
 
-router.put("/reorder",async (req,res)=>{
-    try{
-        console.log(req.session.userId)
-        await reorder(2,req.body.start,req.body.drop)
-        res.status(200).json("working")
-    }catch(err){
-        res.status(500).json(err)
-    }
-})
+// router.put("/reorder",async (req,res)=>{
+//     try{
+//         console.log(req.session.userId)
+//         await reorder(2,req.body.start,req.body.drop)
+//         res.status(200).json("working")
+//     }catch(err){
+//         res.status(500).json(err)
+//     }
+// })
 
 router.put("/complete/:id",async (req,res)=>{
     try{
@@ -101,9 +101,23 @@ router.put("/incomplete/:id",async (req,res)=>{
 
 router.put("/reorder",async (req,res)=>{
     try{
-        console.log(req.body)
-        const result = await reorder(req.body.start,req.body.drop);
+        console.log(req.body.session)
+        const result = await reorder(req.session.userId,req.body.start,req.body.drop);
+        console.log('here we are')
+        console.log(req.session.userId)
         res.status(200).json(result)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+router.put("/ord",async(req,res)=>{
+    try{
+        const item = await UserQueueItem.findByPk(req.body.id);
+        console.log(item.dataValues)
+        item.ordinal = req.body.ord;
+        await item.save();
+        res.status(200).json(item.dataValues)
     }catch(err){
         res.status(500).json(err)
     }

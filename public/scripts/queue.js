@@ -3,6 +3,7 @@ const queueTextInp = $("#new-queue-text");
 const addToQueueBtn = $("#add-queue-item-btn")
 const queueCont = $("#queue-cont")
 
+
 addToQueueBtn.on("click",async (e)=>{
     const newItem = queueTextInp.val();
     const queueLength = document.querySelectorAll("#queue-cont button").length
@@ -55,12 +56,14 @@ queueCont.on("dragover","button",dragOver)
 queueCont.on("dragleave","button",dragLeave)
 queueCont.on("drop","button",drop)
 
+
 const queueDrag = {}
 
 function dragStart(e){
     queueDrag.draggedId = e.currentTarget.dataset.id;
+    queueDrag.draggedUQIId = e.currentTarget.dataset["queue-item-id"]
     const parent = e.currentTarget.parentNode;
-    queueDrag.startOrd = Array.prototype.indexOf.call(parent.children, e.currentTarget);
+    queueDrag.startOrd = Array.prototype.indexOf.call(parent.children, e.currentTarget)+1;
     setTimeout(()=>{
         e.target.classList.add("hide")
     },0)
@@ -82,14 +85,21 @@ function dragLeave(e){
 }
 
 function drop(e){
+    console.log(e)
     e.target.classList.remove("drag-over");
     const draggedItem = document.querySelector(`[data-id="${queueDrag.draggedId}"]`)
     draggedItem.classList.remove("hide");
-    const parent = e.currentTarget.parentNode;
-    queueDrag.endOrd = Array.prototype.indexOf.call(parent.children, e.currentTarget);
+    const parent = e.currentTarget?.parentNode;
+    console.log(parent)
+    if (parent.id !=="queue-cont"){
+        console.log("not proper drop");
+        parent.append(draggedItem) 
+        return;
+    }
+    queueDrag.endOrd = Array.prototype.indexOf.call(parent.children, e.currentTarget)+1;
     e.target.parentNode.insertBefore(draggedItem,e.target);
     reorder(draggedItem.dataset.id,e.target.dataset.id)
-    console.log(queueDrag)
+
 }
 
 async function reorder(id,start,drop){
@@ -97,7 +107,7 @@ async function reorder(id,start,drop){
     const resp = await fetch("/api/queue/reorder",{
         method:"PUT",
         body:JSON.stringify({
-            id:queueDrag.draggedId,start:queueDrag.startOrd+1,drop:queueDrag.endOrd
+            id:queueDrag.draggedUQIId,start:queueDrag.startOrd,drop:queueDrag.endOrd
         }),
         headers:{
             "Content-Type":"application/json"
@@ -106,3 +116,7 @@ async function reorder(id,start,drop){
     const data = resp.json()
     console.log(data)
 }
+
+document.addEventListener("dragend",(e)=>{
+    console.log(e.target.classList.remove("hide"))
+})

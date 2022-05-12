@@ -8,12 +8,12 @@
           <section id="queue-cont" class="button-cont">
             {{#each this as |qi|}}
 
-                <button draggable="true"
+                <button draggable="true" data-ordinal="{{this.user_queue_item.dataValues.ordinal}}"
                 {{#if this.dataValues.isComplete}}
                 class="done"
                 {{/if}}
                 
-                
+                data-queue-item-id="{{this.user_queue_item.dataValues.id}}"
                  data-id="{{this.dataValues.id}}">{{this.user_queue_item.queueitem.dataValues.name}}</button>
             {{/each}}
           </section>

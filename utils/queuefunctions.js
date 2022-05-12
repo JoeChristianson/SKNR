@@ -13,16 +13,16 @@ const reorder = async (id,originalPosition,newPosition)=>{
         if (item.ordinal < originalPosition && item.ordinal<newPosition){
             return
         }
-        if (item.ordinal> originalPosition&&item.ordinal>newPosition){
+        else if (item.ordinal> originalPosition&&item.ordinal>newPosition){
             return
         }
-        if (item.ordinal === originalPosition){
-            console.log(`${item.queueitem.name} needs to move. It's in position ${item.ordinal}`)
+        else if (item.ordinal === originalPosition){
+            console.log(`${item.queueitem.name} needs to move. It's in position ${item.ordinal}. It needs to move to position ${newPosition}`)
             item.set({ordinal:newPosition});
             await item.save();
             return
         }
-        if (originalPosition<newPosition){
+        else if (originalPosition<newPosition){
             console.log("decrementing")
             item.set({ordinal:item.ordinal-1});
             await item.save();

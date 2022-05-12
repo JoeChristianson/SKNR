@@ -5,7 +5,7 @@ const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
 
 router.get("/",withAuth,async (req,res)=>{
-
+    console.log(req.session.userId)
     // const toDos = await getToDos(req.session.userId);
     const toDos = await getToDos(req.session.userId);
     const userInfo = await User.findOne({
