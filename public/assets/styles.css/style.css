@@ -62,7 +62,7 @@ header>button{
 
 main{
     height: 85vh;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #mid{
