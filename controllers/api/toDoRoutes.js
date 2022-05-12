@@ -3,6 +3,7 @@ const {ToDo,User,UserToDo} = require('../../models');
 
 router.post("/",async (req,res)=>{
     try{
+        console.log(req.body)
         let existingToDo = await ToDo.findAll({
             where:{
                 name:req.body.toDoName

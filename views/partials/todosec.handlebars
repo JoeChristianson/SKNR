@@ -1,0 +1,20 @@
+<section id="to-dos-section" class="mod">
+          <h2>To Dos</h2>
+          <section class="module-content to-dos-content">
+            <form action="" id="add-to-do-form">
+            <input id="new-to-do" type="text"/>
+            <input type="submit">
+            </form>
+            {{#each this}}
+              {{#unless this.isComplete}}
+              <div class="to-do-wrapper">
+                <button data-to-do-id="{{this.id}}" data-is-complete="false" class="to-do-btn">
+                </button>
+              <div  data-to-do-id="{{this.id}}" data-is-complete="false" class="to-do" >
+                {{this.todo.dataValues.name}}
+              </div>  
+              </div>
+                {{/unless}}
+            {{/each}}
+          </section>
+        </section>

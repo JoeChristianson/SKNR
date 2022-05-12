@@ -19,7 +19,6 @@ button,input[type="submit"]{
     background-color: var(--light-bg);
     padding: 5px 10px;
     cursor: pointer;
-    margin: auto;
 }
 
 button:hover{
@@ -96,6 +95,7 @@ main{
     width: 2rem;
     background-color: white;
     border-radius: 0;
+    height: 2rem;
     }
 
 .to-do{
@@ -166,6 +166,8 @@ footer>i{
   .drag-over {
     border: dashed 3px red;
 }
+
+
 
   @media screen and (max-width: 600px) {
     .log-reg-wrapper {

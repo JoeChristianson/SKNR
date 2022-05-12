@@ -5,9 +5,10 @@ const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
 
 router.get("/",withAuth,async (req,res)=>{
+    console.log("loading home")
     console.log(req.session.userId)
     // const toDos = await getToDos(req.session.userId);
-    const toDos = await getToDos(req.session.userId);
+    const userToDos = await getToDos(req.session.userId);
     const userInfo = await User.findOne({
         where:{
             id:req.session.userId
@@ -29,11 +30,8 @@ router.get("/",withAuth,async (req,res)=>{
         },
     },
 })
-    queue.forEach(i=>{
-        console.log(i)
-    })
     res.render('home',{
-        loggedin: req.session.logged_in,toDos,username:userInfo.user_name,assessments,queue
+        loggedin: req.session.logged_in,userToDos,username:userInfo.user_name,assessments,queue
     })
 });
 

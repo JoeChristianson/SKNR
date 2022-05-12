@@ -3,13 +3,14 @@ const newToDo = $("input#new-to-do")
 
 body.on('click','.to-do-btn',async (e)=>{
     let complete;
+    const id = e.target.dataset.toDoId;
     if (e.target.dataset.isComplete == "true"){
       complete = false
     }
     else complete = true;
     const response = await fetch('api/todos',{
       method:'PUT',
-      body:JSON.stringify({toDoId:e.target.dataset.toDoId,isComplete:complete}),
+      body:JSON.stringify({userToDoId:id,isComplete:complete}),
       headers:{'Content-Type':"application/json"}
     })
     if(!response.ok){
