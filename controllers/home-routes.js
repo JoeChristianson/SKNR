@@ -56,4 +56,19 @@ router.get("/registration-success",(req,res)=>{
     }
 })
 
+router.get("/assessment",async (req,res)=>{
+    try{
+        const userAssessments = await UserAssessment.findAll({
+            where:{
+                user_id:req.session.userId
+            },
+            include:{model:Assessment}
+        })
+        console.log(userAssessments)
+        res.status(200).render("assessment",{userAssessments})
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
 module.exports = router;

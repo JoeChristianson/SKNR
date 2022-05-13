@@ -51,6 +51,11 @@ header>button{
     font-weight: bolder !important;
 }
 
+.mod{
+    height: 100%;
+    overflow: scroll;
+}
+
 .modal{
     position: absolute;
     left: 50%;
@@ -79,9 +84,9 @@ main{
 
 .main-container{
     display: flex;
-    align-items: center;
     justify-content: space-around;
-    overflow-y: scroll;
+    height: 70vh;
+    margin-top: 10px;
 }
 
 .to-do-wrapper{
