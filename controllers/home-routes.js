@@ -3,6 +3,7 @@ const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem, QueueI
 const withAuth = require('../utils/auth');
 const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
+const {getCurrentDate} = require("../utils/setCurrentDay")
 
 router.get("/",withAuth,async (req,res)=>{
     console.log("loading home")
@@ -19,15 +20,18 @@ router.get("/",withAuth,async (req,res)=>{
             user_id:req.session.userId
         }
     })
+    const today=getCurrentDate()
     const queue = await UserQueueItemDay.findAll({
+        where:{
+            date:`${today.month}/${today.date}/${today.year}`
+        },
         order:[
             ['user_queue_item',"ordinal","ASC"],
             // ['user_queue_item',"queue_item_id","DESC"]
         ],
-        include:{model:UserQueueItem,include:{model:QueueItem},
-        where:{
-            user_id:req.session.userId
-        },
+        include:{model:UserQueueItem,
+            where:{user_id:req.session.userId,}
+            ,include:{model:QueueItem},
     },
 })
     res.render('home',{
