@@ -8,11 +8,13 @@ body.on('click','.to-do-btn',async (e)=>{
       complete = false
     }
     else complete = true;
+    console.log(complete)
     const response = await fetch('api/todos',{
       method:'PUT',
       body:JSON.stringify({userToDoId:id,isComplete:complete}),
       headers:{'Content-Type':"application/json"}
     })
+    console.log(response)
     if(!response.ok){
       alert('failed to complete');
       return
@@ -47,6 +49,7 @@ toDoForm.on('submit',async (e)=>{
 })
 
 const addToDoToPage = (val,id)=>{
+  console.log(id)
   const cont = $(".to-dos-content");
   const wrapper = $("<div>");
   wrapper.addClass("to-do-wrapper");

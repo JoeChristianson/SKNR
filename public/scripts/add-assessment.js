@@ -1,6 +1,7 @@
 const addAssessmentBtn = $("#add-assessment-btn");
 const addAssessmentName = $("#add-assessment-name");
 const addAssessmentMetric = $("#add-assessment-metric")
+const addAssessmentModal = $("#add-assessment-modal")
 
 addAssessmentBtn.on("click",async ()=>{
     const body = {
@@ -15,5 +16,9 @@ addAssessmentBtn.on("click",async ()=>{
             "Content-type":"application/json"
         }
     });
-    console.log(response)
+    addAssessmentModal.addClass("hide")
 })
+
+const loadAssessments = async()=>{
+    const response = await fetch("/api/assessment")
+}

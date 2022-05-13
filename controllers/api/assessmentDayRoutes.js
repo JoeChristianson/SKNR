@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const {AssessmentDay} = require("../../models")
+const {AssessmentDay, UserAssessment, Assessment} = require("../../models")
+const {getCurrentDate,loadCurrentAssessments} = require("../../utils/setCurrentDay")
+
 
 router.post("/",async (req,res)=>{
     try{
@@ -14,3 +16,23 @@ router.post("/",async (req,res)=>{
     }
 })
 
+router.get("/",async (req,res)=>{
+    try{
+        const today=getCurrentDate()
+        const assessmentDays = await AssessmentDay.findAll({
+            where:{
+                date:`${today.month}/${today.date}/${today.year}`,
+
+            },
+            include:{model:UserAssessment,
+                where:{user_id:req.session.userId},
+                include:{model:Assessment}
+            }
+        });
+        res.status(200).json(assessmentDays)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+module.exports = router

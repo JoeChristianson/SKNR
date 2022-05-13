@@ -54,10 +54,11 @@ header>button{
 .modal{
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     width: 400px;
     text-align: center;
     background: white;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 main{

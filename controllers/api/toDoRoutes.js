@@ -22,8 +22,7 @@ router.post("/",async (req,res)=>{
             user_id:req.session.userId,
             todo_id:existingToDo[0].id
         })
-        console.log(newUserToDo);
-        res.json(existingToDo)
+        res.json(newUserToDo)
     }catch(err){
         res.status(500).json(err)
     }
@@ -59,8 +58,8 @@ router.get("/completed",async (req,res)=>{
 })
 
 router.put('/',async (req,res)=>{
-    console.log(req.body.userToDoId);
-    console.log(req.body.isComplete)
+    console.log("userToDoId: "+req.body.userToDoId);
+    console.log("is complete: " + req.body.isComplete)
     const response = await UserToDo.update({
         isComplete:req.body.isComplete
     },{

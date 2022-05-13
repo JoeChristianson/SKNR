@@ -1,4 +1,4 @@
-const {UserQueueItemDay,UserQueueItem} = require("../models");
+const {UserQueueItemDay,UserQueueItem, AssessmentDay, UserAssessment} = require("../models");
 
 const getCurrentDate = ()=>{
     const dateObj = new Date();
@@ -44,5 +44,36 @@ const loadCurrentQueue = async (userId)=>{
     // })
 }
 
-module.exports = {loadCurrentQueue,getCurrentDate}
+const loadCurrentAssessments = async (userId)=>{
+    console.log(userId)
+    const today=getCurrentDate()
+
+    const currentDay = await AssessmentDay.findAll({
+        where:{
+            date:`${today.month}/${today.date}/${today.year}`
+        }
+    });
+    if(currentDay.length!==0){
+        return currentDay;
+    }
+    const userAssessments = await UserAssessment.findAll({
+        where:{
+            user_id:userId
+        }
+    })
+    for(let item of userAssessments){
+        console.log(item);
+        const dayItem = await AssessmentDay.create({
+            assessment_id:item.id,
+            date:`${today.month}/${today.date}/${today.year}`,
+            value:-1
+        })
+        console.log(dayItem)
+    }
+    // const newDay = await UserQueueItemDay.bulkCreate({
+
+    // })
+}
+
+module.exports = {loadCurrentQueue,getCurrentDate,loadCurrentAssessments}
 

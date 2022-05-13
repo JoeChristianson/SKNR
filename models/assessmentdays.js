@@ -24,7 +24,7 @@ AssessmentDay.init(
         },
         value:{
             type:DataTypes.INTEGER,
-            allowNull:false,
+            allowNull:true,
         }       
     },
     {
