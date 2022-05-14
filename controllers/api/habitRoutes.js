@@ -17,7 +17,6 @@ router.post("/",async (req,res)=>{
         else{
             const newHabit = await Habit.create({
                 habit_name:req.body.habitName,
-                positive:req.body.positive,
                 is_active:true,
             });
             habitId = newHabit.id
