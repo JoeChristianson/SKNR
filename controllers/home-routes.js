@@ -37,7 +37,7 @@ router.get("/",withAuth,async (req,res)=>{
     })
     let habits = await UserHabitDay.findAll({
         where:{
-            date:`${today.month}/${today.date}/${today.year}`
+            date:req.session.timeObj.absoluteDate
         },
         include:{model:UserHabit,
             where:{user_id:req.session.userId,}
