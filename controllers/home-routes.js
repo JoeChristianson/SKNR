@@ -1,13 +1,12 @@
 const router = require('express').Router();
-const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem, QueueItem, AssessmentDay} = require('../models');
+const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem, QueueItem, AssessmentDay, UserHabitDay,UserHabit,Habit} = require('../models');
 const withAuth = require('../utils/auth');
 const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
-const {getCurrentDate,loadCurrentAssessments} = require("../utils/setCurrentDay")
+const {getCurrentDate,loadCurrentAssessments,loadCurrentHabits} = require("../utils/setCurrentDay")
 
 router.get("/",withAuth,async (req,res)=>{
-    console.log("loading home")
-    console.log(req.session.userId)
+    console.log(req.session)
     // const toDos = await getToDos(req.session.userId);
     const userToDos = await getToDos(req.session.userId);
     const userInfo = await User.findOne({
@@ -20,11 +19,12 @@ router.get("/",withAuth,async (req,res)=>{
             user_id:req.session.userId
         }
     })
-    await loadCurrentAssessments(req.session.userId);
+    await loadCurrentAssessments(req.session.userId,req.session.timeObj);
+    await loadCurrentHabits(req.session.userId,req.session.timeObj);
     let today=getCurrentDate();
     const queue = await UserQueueItemDay.findAll({
         where:{
-            date:`${today.month}/${today.date}/${today.year}`
+            date:req.session.timeObj.absoluteDate
         },
         order:[
             ['user_queue_item',"ordinal","ASC"],
@@ -35,9 +35,29 @@ router.get("/",withAuth,async (req,res)=>{
             ,include:{model:QueueItem},
         },
     })
-    today = `${today.month}/${today.date}/${today.year}`
+    let habits = await UserHabitDay.findAll({
+        where:{
+            date:`${today.month}/${today.date}/${today.year}`
+        },
+        include:{model:UserHabit,
+            where:{user_id:req.session.userId,}
+            ,include:{model:Habit},
+        },
+    })
+
+    habits = habits.map(habit=>{
+        return {
+            uhd_id:habit.dataValues.id,
+            isOn:habit.dataValues.isOn,
+            isComplete:habit.dataValues.isComplete,
+            name:habit.user_habit.habit.dataValues.habit_name
+        }
+    })
+    habits = habits.filter(habit=>habit.isOn)
+    console.log(habits)
+    today = `${today.month}/${today.date}/${today.year}`;
     res.render('home',{
-        today, loggedin: req.session.logged_in,userToDos,username:userInfo.user_name,assessments,queue
+        habits,today, loggedin: req.session.logged_in,userToDos,username:userInfo.user_name,assessments,queue
     })
 });
 

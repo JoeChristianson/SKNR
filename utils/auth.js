@@ -24,6 +24,4 @@ const withAuth = async (req,res,next)=>{
     next();
 }
 
-
-
 module.exports = withAuth;

@@ -91,7 +91,7 @@ main{
     margin-top: 10px;
 }
 
-.to-do-wrapper{
+.to-do-wrapper,.btn-wrapper{
     width: 100%;
     background-color: #80008017;
     display: flex;
@@ -99,14 +99,14 @@ main{
 
 }
 
-.task-btn, .to-do-btn{
+.task-btn, .to-do-btn, .item-btn{
     width: 2rem;
     background-color: white;
     border-radius: 0;
     height: 2rem;
     }
 
-.to-do{
+.to-do,.item{
     padding: .5em;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

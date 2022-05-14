@@ -45,6 +45,7 @@ router.get("/",async (req,res)=>{
             }
         })
         console.log("in it")
+        console.log(habits)
         res.status(200).json(habits)
     }catch(err){
         res.status(500).json(err)

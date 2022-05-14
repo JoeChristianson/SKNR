@@ -26,7 +26,7 @@ router.post("/",async (req,res)=>{
         const newUserQueueItemDay = await UserQueueItemDay.create({
             user_queue_item_id:newUserQueueItem.id,
             queue_item_id:existingQueueItem[0].id,
-            date:`${today.month}/${today.date}/${today.year}`,
+            date:req.session.timeObj.absoluteDate,
         })
         console.log(newUserQueueItem);
         res.json(existingQueueItem)

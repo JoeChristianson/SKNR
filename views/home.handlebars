@@ -8,14 +8,13 @@
     <div class="main-container">
       {{> queuesec queue}}
       {{> todosec userToDos}}
+      {{> habitsec habits}}
         
-        <section id="habit-section" class="mod mhide">
-          <h2>Today's Habits</h2>
-          <section class="module-content"></section>
-        </section>
 
-      </div>
       {{> add-item }}
       {{> add-assessment}}
+      {{> add-habit}}
   <script src="./scripts/home.js"></script>
     <script src="./scripts/todo.js"></script>
+     <script src="./scripts/habit.js"></script>
+    <script src="./scripts/other-habit-calls.js"></script>

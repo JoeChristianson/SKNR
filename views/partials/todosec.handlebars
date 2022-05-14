@@ -7,10 +7,10 @@
             </form>
             {{#each this}}
               {{#unless this.isComplete}}
-              <div class="to-do-wrapper">
-                <button data-to-do-id="{{this.id}}" data-is-complete="false" class="to-do-btn">
+              <div class="to-do-wrapper btn-wrapper">
+                <button data-to-do-id="{{this.id}}" data-is-complete="false" class="to-do-btn item-btn">
                 </button>
-              <div  data-to-do-id="{{this.id}}" data-is-complete="false" class="to-do" >
+              <div  data-to-do-id="{{this.id}}" data-is-complete="false" class="to-do item" >
                 {{this.todo.dataValues.name}}
               </div>  
               </div>

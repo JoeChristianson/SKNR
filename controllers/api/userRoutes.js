@@ -49,7 +49,7 @@ router.post('/login',async (req,res)=>{
                 email: req.body.email,
             }
         });
-        
+
         if(!userData){
             res.status(400).json({message:"Incorrect email or password."});
             return;
@@ -59,12 +59,11 @@ router.post('/login',async (req,res)=>{
             res.status(400).json({message:'Incorrect email or password'});
             return;
         }
-        
-        const currentDay  = await loadCurrentQueue(userData.getDataValue("id"));
-        console.log(currentDay)
         req.session.save(async ()=>{
             req.session.loggedIn = true;
+            req.session.timeObj = req.body.timeObj;
             req.session.userId = userData.getDataValue("id");
+            const currentDay  = await loadCurrentQueue(userData.getDataValue("id"),req.session.timeObj);
             res.status(200).json({user:userData,message: 'You are now logged in'})
         })
     }catch(err){

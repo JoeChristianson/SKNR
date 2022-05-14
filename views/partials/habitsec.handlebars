@@ -1,0 +1,18 @@
+        <section id="habit-section" class="mod mhide">
+          <h2>Today's Habits</h2>
+          <section class="module-content">
+            {{#each this}}
+              <div class="habit-wrapper btn-wrapper">
+                <button data-habit-id="{{this.uhd_id}}" data-is-complete={{this.isComplete}} class="item-btn habit-btn">
+                </button>
+              <div  data-habit-id="{{this.uhd_id}}" data-is-complete={{this.isComplete}} class="habit item" >
+                {{this.name}}
+              </div>  
+              </div>
+            {{/each}}
+          </section>
+        </section>
+
+      </div>
+
+   
