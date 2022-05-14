@@ -19,9 +19,6 @@ Habit.init(
       is_active:{
           type:DataTypes.BOOLEAN,
       },
-      positive:{
-        type:DataTypes.BOOLEAN
-      }
     },
     {
       sequelize,
