@@ -1,4 +1,4 @@
-const { AssessmentDay } = require("../models");
+const { AssessmentDay, UserAssessment } = require("../models");
 const {getCurrentDate} = require("../utils/setCurrentDay")
 
 const withAuth = async (req,res,next)=>{
@@ -11,13 +11,16 @@ const withAuth = async (req,res,next)=>{
         where:{
             date:`${today.month}/${today.date}/${today.year}`,
             value:-1
-        }
+        },
+        include:{model:UserAssessment,where:{
+            user_id:req.session.userId
+        }}
     })
     console.log("This is the assessed: " + assessed)
-    // if (assessed.length !== 0){
-    //     res.redirect("/assessment");
-    //     return
-    // }
+    if (assessed.length !== 0){
+        res.redirect("/assessment");
+        return
+    }
     next();
 }
 

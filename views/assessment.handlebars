@@ -1,5 +1,7 @@
-Hello!!!
-
-{{#each userAssessments}}
-    {{this.assessment.dataValues.assessment_name}}
+{{#each results}}
+    {{> assessmentItem this}}
 {{/each}}
+
+<button id="assessment-submission">SUBMIT</button>
+
+<script src="./scripts/make-assessments.js"></script>

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem, QueueItem} = require('../models');
+const {User, Assessment, UserQueueItemDay, UserAssessment, UserQueueItem, QueueItem, AssessmentDay} = require('../models');
 const withAuth = require('../utils/auth');
 const checkAssessments = require('../utils/checkAssessments')
 const {getToDos} = require("../utils/getData");
@@ -21,7 +21,7 @@ router.get("/",withAuth,async (req,res)=>{
         }
     })
     await loadCurrentAssessments(req.session.userId);
-    const today=getCurrentDate()
+    let today=getCurrentDate();
     const queue = await UserQueueItemDay.findAll({
         where:{
             date:`${today.month}/${today.date}/${today.year}`
@@ -33,10 +33,11 @@ router.get("/",withAuth,async (req,res)=>{
         include:{model:UserQueueItem,
             where:{user_id:req.session.userId,}
             ,include:{model:QueueItem},
-    },
-})
+        },
+    })
+    today = `${today.month}/${today.date}/${today.year}`
     res.render('home',{
-        loggedin: req.session.logged_in,userToDos,username:userInfo.user_name,assessments,queue
+        today, loggedin: req.session.logged_in,userToDos,username:userInfo.user_name,assessments,queue
     })
 });
 
@@ -58,14 +59,32 @@ router.get("/registration-success",(req,res)=>{
 
 router.get("/assessment",async (req,res)=>{
     try{
-        const userAssessments = await UserAssessment.findAll({
+        const today=getCurrentDate()
+        const assessmentDays = await AssessmentDay.findAll({
+            where:{
+                date:`${today.month}/${today.date}/${today.year}`
+            },
+            include:{model:UserAssessment,
             where:{
                 user_id:req.session.userId
             },
             include:{model:Assessment}
+        }
         })
-        console.log(userAssessments)
-        res.status(200).render("assessment",{userAssessments})
+        console.log(assessmentDays[0])
+        const results = assessmentDays.map((assessment)=>{
+            return {
+                id:assessment.id,
+                assessmentId:assessment.assessment_id,
+                name:assessment.user_assessment.assessment.assessment_name,
+                metric:assessment.user_assessment.assessment.metric,
+                grade:assessment.user_assessment.assessment.metric==="grade"?true:false,
+                boolean:assessment.user_assessment.assessment.metric==="boolean"?true:false,
+                amount:assessment.user_assessment.assessment.metric==="amount"?true:false,
+            }
+        })
+        console.log(results)
+        res.status(200).render("assessment",{results})
     }catch(err){
         res.status(500).json(err)
     }

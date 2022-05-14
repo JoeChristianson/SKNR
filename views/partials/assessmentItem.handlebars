@@ -1,0 +1,20 @@
+<article>
+    <header>{{this.name}}</header>
+    <div>
+        {{#if this.boolean}}
+        <input class="assessment" type="checkbox" data-da-id="{{this.id}}"">
+    {{/if}}
+    {{#if this.grade}}
+        <select class="assessment" name="grade" data-da-id="{{this.id}}"">
+        <option value=4>A</option>
+        <option value=3>B</option>
+        <option value=2>C</option>
+        <option value=1>D</option>
+        <option value=0>F</option>
+        </select>
+    {{/if}}
+    {{#if this.amount}}
+        <input class="assessment" type="number" data-da-id="{{this.id}}"">
+    {{/if}}
+    </div>
+</article>

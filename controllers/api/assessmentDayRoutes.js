@@ -35,4 +35,27 @@ router.get("/",async (req,res)=>{
     }
 })
 
+router.put("/",async (req,res)=>{
+    try{
+        console.log("in it")
+        const arr = req.body.changes;
+        console.log(arr)
+        // const results = await AssessmentDay.bulkCreate(
+        //     arr,
+        //     {
+        //       updateOnDuplicate: ["value",`created_at`,`updated_at`],
+        //     }
+        //   );
+        arr.forEach(async (ass)=>{
+            const item = await AssessmentDay.findByPk(ass.id);
+            item.set({value:ass.value});
+            await item.save()
+            console.log(item)
+        })
+        res.status(200).json({})
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
 module.exports = router
