@@ -15,7 +15,7 @@ const timeObjF = ()=>{
   obj.offset = moment().utcOffset();
   obj.offsetTime = (obj.now.unix()+obj.offset*60)/3600/24;
   obj.hour = obj.offsetTime%1*24
-  obj.absoluteDate = Math.floor((obj.now.unix()+obj.offset*60)/3600/24);
+  obj.absoluteDate = (Math.floor((obj.now.unix()+obj.offset*60)/3600/24)+1)*3600*24*1000;
   obj.tommorow = obj.absoluteDate+1
   obj.midnight = obj.tommorow*3600*24
   obj.timeRemaining = obj.midnight-obj.absoluteTime

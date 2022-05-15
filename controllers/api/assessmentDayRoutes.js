@@ -8,7 +8,7 @@ router.post("/",async (req,res)=>{
         const newAssessmentDay = AssessmentDay.create({
             assessment_value:req.body.assessment_value,
             assessment_id:req.body.assessment_id,
-            date:req.body.date
+            date:req.session.timeObj
         })
         res.status(200).json(err)
     }catch(err){
@@ -18,10 +18,9 @@ router.post("/",async (req,res)=>{
 
 router.get("/",async (req,res)=>{
     try{
-        const today=getCurrentDate()
         const assessmentDays = await AssessmentDay.findAll({
             where:{
-                date:`${today.month}/${today.date}/${today.year}`,
+                date:req.session.timeObj,
 
             },
             include:{model:UserAssessment,

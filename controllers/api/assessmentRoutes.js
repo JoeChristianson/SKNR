@@ -35,10 +35,10 @@ router.post("/",async(req,res)=>{
 
 router.get("/",async(req,res)=>{
     try{
-        const assessments = await Assessment.findAll({
+        const assessments = await UserAssessment.findAll({
             where:{
                 user_id:req.session.userId
-            }
+            },include:{model:Assessment}
         });
         res.status(200).json(assessments)
     }catch(err){
