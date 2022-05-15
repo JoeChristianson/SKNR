@@ -72,7 +72,6 @@ const loadCurrentAssessments = async (userId,timeObj)=>{
 const loadCurrentHabits = async (userId,timeObj)=>{
     console.log("this is the user id")
     console.log(userId)
-    const today=getCurrentDate()
 
     const currentDay = await UserHabitDay.findAll({
         where:{

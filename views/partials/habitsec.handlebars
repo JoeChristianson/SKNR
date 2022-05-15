@@ -3,9 +3,17 @@
           <section class="module-content">
             {{#each this}}
               <div class="habit-wrapper btn-wrapper">
-                <button data-habit-id="{{this.uhd_id}}" data-is-complete={{this.isComplete}} class="item-btn habit-btn">
+                <button data-habit-id="{{this.uhd_id}}" data-is-complete={{this.isComplete}} class="item-btn habit-btn 
+                {{#if this.isComplete}}
+                done
+                {{/if}}
+                ">
                 </button>
-              <div  data-habit-id="{{this.uhd_id}}" data-is-complete={{this.isComplete}} class="habit item" >
+              <div  data-habit-id="{{this.uhd_id}}" data-is-complete={{this.isComplete}} class="habit item
+                              {{#if this.isComplete}}
+                done-text
+                {{/if}}
+              " >
                 {{this.name}}
               </div>  
               </div>

@@ -53,6 +53,7 @@ router.get("/",withAuth,async (req,res)=>{
             name:habit.user_habit.habit.dataValues.habit_name
         }
     })
+    console.log("here are the habits")
     habits = habits.filter(habit=>habit.isOn)
     console.log(habits)
     today = `${today.month}/${today.date}/${today.year}`;
