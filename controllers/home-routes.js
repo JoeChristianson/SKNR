@@ -56,7 +56,7 @@ router.get("/",withAuth,async (req,res)=>{
     console.log("here are the habits")
     habits = habits.filter(habit=>habit.isOn)
     console.log(habits)
-    today = `${today.month}/${today.date}/${today.year}`;
+    today = req.session.timeObj.absoluteDate;
     res.render('home',{
         habits,today, loggedin: req.session.logged_in,userToDos,username:userInfo.user_name,assessments,queue
     })
