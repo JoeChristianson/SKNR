@@ -111,4 +111,36 @@ router.get("/assessment",async (req,res)=>{
     }
 })
 
+router.get("/analysis",withAuth,async (req,res)=>{
+
+
+    let habits = await UserHabit.findAll({
+        where:{
+            user_id:req.session.userId
+        },
+        include:{model:Habit}
+    });
+    habits = habits.map(uhabit=>{
+        return {
+            id:uhabit.dataValues.id,
+            name:uhabit.dataValues.habit.dataValues.habit_name
+        }
+    })
+    let assessments = await UserAssessment.findAll({
+        where:{
+            user_id:req.session.userId
+        },
+        include:{model:Assessment}
+    });
+    assessments = assessments.map(uAssessment=>{
+        return {
+            id:uAssessment.dataValues.id,
+            name:uAssessment.dataValues.assessment.dataValues.assessment_name
+        }
+    })
+    res.render("analysis",{habits,assessments})
+})
+
+
+
 module.exports = router;

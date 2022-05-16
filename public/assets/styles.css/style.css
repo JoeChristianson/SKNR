@@ -68,6 +68,17 @@ header>button{
     transform: translate(-50%, -50%);
 }
 
+.modal>div{
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal section{
+    padding: 1em;
+    cursor: pointer;
+}
+
+
 main{
     height: 85vh;
     overflow: auto;
@@ -90,6 +101,18 @@ main{
     height: 70vh;
     margin-top: 10px;
 }
+#queue-cont button:not(.done){
+    background-color: red;
+    color:white;
+    font-size: 2em;
+}
+
+#queue-cont button:not(.done)~button{
+    background-color:initial;
+    font-size: initial;
+    color:initial;
+}
+
 
 .to-do-wrapper,.btn-wrapper{
     width: 100%;
@@ -119,13 +142,15 @@ footer{
     background-color: var(--dark-bg);
     display: flex;
     justify-content: space-evenly;
-    padding: 1em;
 }
 
-footer>i{
-    background-color: white;
-    border-radius: 50%;
+footer>span{
+    padding: 0.6em 1em;
+    cursor: pointer;
+    color:white;
 }
+
+
 
 .to-do-btn:hover::before, .done::before{
     content: "\2713";

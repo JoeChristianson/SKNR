@@ -86,6 +86,7 @@ const loadCurrentHabits = async (userId,timeObj)=>{
             user_id:userId
         }
     })
+    console.log("here are the habit days+")
     for(let item of userHabits){
         const dayItem = await UserHabitDay.create({
             user_habit_id:item.id,
