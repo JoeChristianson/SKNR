@@ -9,16 +9,12 @@ router.post("/",async(req,res)=>{
             }
         }
         );
-        console.log(existingAssessment);
-        console.log(req.body)
         if (existingAssessment.length===0){
-            console.log("none")
             existingAssessment[0] = await Assessment.create({
                 assessment_name:req.body.assessmentName,
                 metric:req.body.metric
             })
         }
-        console.log(existingAssessment);
         const newUserAssessment = await UserAssessment.create({
             user_id:req.session.userId,
             assessment_id:existingAssessment[0].id
@@ -39,6 +35,7 @@ router.get("/",async(req,res)=>{
         });
         res.status(200).json(assessments)
     }catch(err){
+        console.log(err)
         res.status(500).json(err);
     }
 })

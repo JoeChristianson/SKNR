@@ -1,0 +1,13 @@
+section{
+    max-width: 600px;
+    margin: auto;
+}
+p{
+    line-height: 1.3em;
+    text-align:justify;
+    margin-bottom: 1em;
+}
+
+section h3{
+    text-align: center;
+}

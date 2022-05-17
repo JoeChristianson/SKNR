@@ -87,7 +87,7 @@ const loginFormHandler = async (event) => {
       console.log(data)
       if (response.ok) {
         console.log(response)
-        // document.location.replace('/registration-success');
+        document.location.replace('/registration-success');
       } else {
         alertFailure(data.message)
       }

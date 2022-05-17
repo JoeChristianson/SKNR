@@ -72,7 +72,7 @@ router.get('/login',(req,res)=>{
 
 router.get("/registration-success",(req,res)=>{
     try{
-        res.status(200).render("registration-success")
+        res.status(200).render("registration-success",{layout:"info-page.handlebars"})
     }catch(err){
         res.status(500).json(err)
     }
